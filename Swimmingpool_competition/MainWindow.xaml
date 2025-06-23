@@ -166,6 +166,11 @@
     </Window.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="14*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -173,7 +178,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}" Padding="30,15">
+        <Border Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}" Padding="30,15" Margin="10,10,10,642" Grid.RowSpan="2" Grid.ColumnSpan="3">
             <Border.Effect>
                 <DropShadowEffect Color="Black" Direction="270" ShadowDepth="2" BlurRadius="20" Opacity="0.1"/>
             </Border.Effect>
@@ -225,7 +230,7 @@
         </Border>
 
         <!-- Main Content -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
             <StackPanel Margin="40">
                 <!-- Welcome Section -->
                 <StackPanel HorizontalAlignment="Center" Margin="0,0,0,40">
@@ -314,7 +319,7 @@
         </ScrollViewer>
 
         <!-- Status Bar -->
-        <Border Grid.Row="2" Background="#33FFFFFF" Padding="30,15">
+        <Border Grid.Row="1" Background="#33FFFFFF" Padding="30,15" Grid.ColumnSpan="3" Margin="0,738,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

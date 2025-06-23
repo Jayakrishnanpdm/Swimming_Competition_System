@@ -1,0 +1,327 @@
+﻿<Window x:Class="SwimmingCompetitionManager.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Swimming Competition Manager - Login" 
+        Height="600" 
+        Width="900"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <!-- Light Blue and White Theme Colors -->
+        <SolidColorBrush x:Key="PrimaryBlue" Color="#87CEEB"/>
+        <SolidColorBrush x:Key="LightBlue" Color="#B0E0E6"/>
+        <SolidColorBrush x:Key="DarkBlue" Color="#4682B4"/>
+        <SolidColorBrush x:Key="White" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="LightGray" Color="#F0F8FF"/>
+        <SolidColorBrush x:Key="TextGray" Color="#2F4F4F"/>
+
+        <!-- Button Shadow Effect -->
+        <DropShadowEffect x:Key="ButtonShadow" Color="Black" Direction="315" ShadowDepth="2" Opacity="0.2" BlurRadius="8"/>
+
+        <!-- Solid Login Panel Style -->
+        <Style x:Key="GlassPanelStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource White}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource LightBlue}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" Direction="315" ShadowDepth="5" Opacity="0.3" BlurRadius="20"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern Button Style -->
+        <Style x:Key="LoginButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBlue}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="8"
+                                Effect="{StaticResource ButtonShadow}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource DarkBlue}"/>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#87CEEB" Direction="315" ShadowDepth="3" Opacity="0.4" BlurRadius="15"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource DarkBlue}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern TextBox Style - Reduced size -->
+        <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource White}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource LightBlue}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource TextGray}"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryBlue}"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#87CEEB" Direction="315" ShadowDepth="2" Opacity="0.3" BlurRadius="10"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- PasswordBox Style - Reduced size -->
+        <Style x:Key="ModernPasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Background" Value="{StaticResource White}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource LightBlue}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource TextGray}"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryBlue}"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#87CEEB" Direction="315" ShadowDepth="2" Opacity="0.3" BlurRadius="10"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Animation for Login Panel -->
+        <Storyboard x:Key="FadeInAnimation">
+            <DoubleAnimation Storyboard.TargetName="LoginPanel" 
+                             Storyboard.TargetProperty="Opacity" 
+                             From="0" To="1" Duration="0:0:0.8"/>
+            <DoubleAnimation Storyboard.TargetName="LoginPanelTransform" 
+                             Storyboard.TargetProperty="Y" 
+                             From="50" To="0" Duration="0:0:0.8"/>
+        </Storyboard>
+
+        <!-- Loading Animation -->
+        <Storyboard x:Key="LoadingAnimation" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="LoadingRotation" 
+                             Storyboard.TargetProperty="Angle" 
+                             From="0" To="360" 
+                             Duration="0:0:1"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="LoginPanel" 
+                                     Storyboard.TargetProperty="Opacity" 
+                                     From="0" To="1" Duration="0:0:0.8"/>
+                    <DoubleAnimation Storyboard.TargetName="LoginPanelTransform" 
+                                     Storyboard.TargetProperty="Y" 
+                                     From="50" To="0" Duration="0:0:0.8"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid>
+        <!-- Michael Phelps Background Image -->
+        <Image Source="philps_image.webp" 
+           Stretch="UniformToFill" 
+           HorizontalAlignment="Center" 
+           VerticalAlignment="Center"/>
+
+        <!-- Dark overlay for better contrast and readability -->
+        <Rectangle Fill="Black" Opacity="0.4"/>
+
+        <!-- Blue tinted overlay to maintain theme -->
+        <Rectangle Fill="{StaticResource PrimaryBlue}" Opacity="0.2"/>
+
+        <!-- Gradient overlay for professional look -->
+        <Rectangle>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#4687CEEB" Offset="0"/>
+                    <GradientStop Color="#804682B4" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!-- Close Button -->
+        <Button x:Name="CloseButton" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="20,20" 
+            Width="30" 
+            Height="30"
+            Background="Transparent"
+            BorderThickness="0"
+            Foreground="White"
+            FontSize="16"
+            FontWeight="Bold"
+            Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+            ✕
+        </Button>
+
+        <!-- Rest of your content continues here... -->
+
+        <!-- Main Login Panel -->
+        <Border x:Name="LoginPanel" 
+                Style="{StaticResource GlassPanelStyle}"
+                Width="400" 
+                Height="450"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Opacity="1">
+            <Border.RenderTransform>
+                <TranslateTransform x:Name="LoginPanelTransform" Y="0"/>
+            </Border.RenderTransform>
+
+            <StackPanel Margin="40" VerticalAlignment="Center">
+
+
+                <!-- Title -->
+                <TextBlock Text="AquaManager Pro" 
+                           FontSize="28" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource DarkBlue}" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,0,0,5"/>
+
+                <TextBlock Text="Swimming Competition Management System" 
+                           FontSize="14" 
+                           Foreground="{StaticResource TextGray}" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,0,0,30"/>
+
+                <!-- Username Field -->
+                <TextBlock Text="Username" 
+                           FontSize="14" 
+                           FontWeight="SemiBold" 
+                           Foreground="{StaticResource DarkBlue}" 
+                           Margin="0,0,0,8"/>
+                <TextBox x:Name="UsernameTextBox" 
+                         Style="{StaticResource ModernTextBoxStyle}"
+                         Margin="0,0,0,15"/>
+
+                <!-- Password Field -->
+                <TextBlock Text="Password" 
+                           FontSize="14" 
+                           FontWeight="SemiBold" 
+                           Foreground="{StaticResource DarkBlue}" 
+                           Margin="0,0,0,8"/>
+                <PasswordBox x:Name="PasswordBox" 
+                             Style="{StaticResource ModernPasswordBoxStyle}"
+                             Margin="0,0,0,15"/>
+
+                <!-- Forgot Password -->
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,0,20">
+                    <Hyperlink x:Name="ForgotPasswordLink" 
+                               Foreground="{StaticResource DarkBlue}"
+                               TextDecorations="None">
+                        <Run Text="Forgot Password?"/>
+                    </Hyperlink>
+                </TextBlock>
+
+                <!-- Login Button -->
+                <Button x:Name="LoginButton" 
+                        Content="Sign In" 
+                        Style="{StaticResource LoginButtonStyle}"
+                        Height="45"
+                        Margin="0,0,0,15"/>
+
+                <!-- Loading Indicator -->
+                <StackPanel x:Name="LoadingPanel" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            Margin="0,10,0,0"
+                            Visibility="Collapsed">
+                    <TextBlock Text="Signing in..." 
+                               Foreground="{StaticResource DarkBlue}" 
+                               FontSize="14" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,10,0"/>
+                    <Border Width="20" Height="20" 
+                            BorderBrush="{StaticResource PrimaryBlue}" 
+                            BorderThickness="2" 
+                            CornerRadius="10">
+                        <Border.RenderTransform>
+                            <RotateTransform x:Name="LoadingRotation"/>
+                        </Border.RenderTransform>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Michael Phelps Quote/Inspiration -->
+        <TextBlock Text="&quot;Dream as big as you can dream, and anything is possible.&quot; - Michael Phelps" 
+                   FontSize="16" 
+                   FontStyle="Italic" 
+                   Foreground="White" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Bottom" 
+                   Margin="20,0,20,30"
+                   TextAlignment="Center"
+                   Effect="{StaticResource ButtonShadow}"/>
+    </Grid>
+</Window>

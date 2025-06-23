@@ -17,3 +17,6 @@ C:\Users\Jayakrishanan N\source\repos\Swimmingpool_competition\Swimmingpool_comp
 C:\Users\Jayakrishanan N\source\repos\Swimmingpool_competition\Swimmingpool_competition\obj\Debug\net8.0-windows\Swimmingpool_competition.pdb
 C:\Users\Jayakrishanan N\source\repos\Swimmingpool_competition\Swimmingpool_competition\obj\Debug\net8.0-windows\Swimmingpool_competition.genruntimeconfig.cache
 C:\Users\Jayakrishanan N\source\repos\Swimmingpool_competition\Swimmingpool_competition\obj\Debug\net8.0-windows\ref\Swimmingpool_competition.dll
+C:\Users\Jayakrishanan N\source\repos\Swimmingpool_competition\Swimmingpool_competition\obj\Debug\net8.0-windows\login.baml
+C:\Users\Jayakrishanan N\source\repos\Swimmingpool_competition\Swimmingpool_competition\obj\Debug\net8.0-windows\login.g.cs
+C:\Users\Jayakrishanan N\source\repos\Swimmingpool_competition\Swimmingpool_competition\obj\Debug\net8.0-windows\Swimmingpool_competition.sourcelink.json
