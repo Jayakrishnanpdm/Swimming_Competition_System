@@ -1,0 +1,459 @@
+﻿<!-- MainWindow.xaml -->
+<Window x:Class="SwimmingEventManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Swimming Competition Event Manager" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+
+	<Window.Resources>
+		<!-- Modern Light Blue Theme -->
+		<SolidColorBrush x:Key="PrimaryBrush" Color="#2196F3"/>
+		<SolidColorBrush x:Key="SecondaryBrush" Color="#E3F2FD"/>
+		<SolidColorBrush x:Key="AccentBrush" Color="#1976D2"/>
+		<SolidColorBrush x:Key="LightBrush" Color="#F5F5F5"/>
+		<SolidColorBrush x:Key="TextBrush" Color="#333333"/>
+		<SolidColorBrush x:Key="BorderBrush" Color="#DDDDDD"/>
+
+		<!-- Button Style -->
+		<Style x:Key="ModernButton" TargetType="Button">
+			<Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontWeight" Value="Medium"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Padding" Value="20,10"/>
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!-- Card Style -->
+		<Style x:Key="Card" TargetType="Border">
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="Margin" Value="10"/>
+			<Setter Property="Padding" Value="20"/>
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="2" Direction="315" Color="Gray" Opacity="0.3" BlurRadius="8"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!-- Text Box Style -->
+		<Style x:Key="ModernTextBox" TargetType="TextBox">
+			<Setter Property="Padding" Value="10,8"/>
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="TextBox">
+						<Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+							<ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsFocused" Value="True">
+								<Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+								<Setter Property="BorderThickness" Value="2"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!-- ComboBox Style -->
+		<Style x:Key="ModernComboBox" TargetType="ComboBox">
+			<Setter Property="Padding" Value="10,8"/>
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Background" Value="White"/>
+		</Style>
+
+		<!-- DataGrid Style -->
+		<Style x:Key="ModernDataGrid" TargetType="DataGrid">
+			<Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="GridLinesVisibility" Value="Horizontal"/>
+			<Setter Property="HorizontalGridLinesBrush" Value="{StaticResource BorderBrush}"/>
+			<Setter Property="AlternatingRowBackground" Value="{StaticResource SecondaryBrush}"/>
+			<Setter Property="RowBackground" Value="White"/>
+			<Setter Property="HeadersVisibility" Value="Column"/>
+			<Setter Property="AutoGenerateColumns" Value="False"/>
+			<Setter Property="CanUserAddRows" Value="False"/>
+			<Setter Property="CanUserDeleteRows" Value="False"/>
+			<Setter Property="IsReadOnly" Value="True"/>
+			<Setter Property="SelectionMode" Value="Single"/>
+		</Style>
+
+		<!-- Header Style -->
+		<Style x:Key="HeaderText" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="24"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+			<Setter Property="Margin" Value="0,0,0,20"/>
+		</Style>
+
+		<!-- Section Header Style -->
+		<Style x:Key="SectionHeader" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+			<Setter Property="Margin" Value="0,0,0,10"/>
+		</Style>
+
+		<!-- Label Style -->
+		<Style x:Key="FormLabel" TargetType="Label">
+			<Setter Property="FontWeight" Value="Medium"/>
+			<Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+			<Setter Property="Margin" Value="5,5,5,0"/>
+		</Style>
+	</Window.Resources>
+
+	<Grid Background="{StaticResource LightBrush}">
+		<!-- Header -->
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<!-- Header Section -->
+		<Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="20,15">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+
+				<StackPanel Grid.Column="0" Orientation="Horizontal">
+					<TextBlock Text="🏊‍♂️" FontSize="28" Margin="0,0,10,0"/>
+					<StackPanel>
+						<TextBlock Text="Swimming Competition Manager"
+                                 FontSize="24" FontWeight="Bold" Foreground="White"/>
+						<TextBlock Text="Professional Event Management System"
+                                 FontSize="14" Foreground="#E3F2FD"/>
+					</StackPanel>
+				</StackPanel>
+
+				<StackPanel Grid.Column="1" Orientation="Horizontal">
+					<Button Content="Dashboard" Style="{StaticResource ModernButton}"
+                            Background="Transparent" BorderBrush="White" BorderThickness="1"/>
+					<Button Content="Reports" Style="{StaticResource ModernButton}"
+                            Background="Transparent" BorderBrush="White" BorderThickness="1"/>
+					<Button Content="Settings" Style="{StaticResource ModernButton}"
+                            Background="Transparent" BorderBrush="White" BorderThickness="1"/>
+				</StackPanel>
+			</Grid>
+		</Border>
+
+		<!-- Main Content -->
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="250"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<!-- Navigation Menu -->
+			<Border Grid.Column="0" Background="White" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
+				<ScrollViewer VerticalScrollBarVisibility="Auto">
+					<StackPanel Margin="10">
+						<TextBlock Text="Navigation" Style="{StaticResource SectionHeader}" Margin="10,20,10,15"/>
+
+						<!-- Tournament Management -->
+						<Expander Header="Tournament Management" IsExpanded="True" Margin="5">
+							<StackPanel Margin="15,5,5,5">
+								<Button Content="Create Tournament" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="CreateTournament_Click"/>
+								<Button Content="Manage Tournaments" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="ManageTournaments_Click"/>
+								<Button Content="Event Configuration" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="EventConfiguration_Click"/>
+							</StackPanel>
+						</Expander>
+
+						<!-- Registration -->
+						<Expander Header="Registration" Margin="5">
+							<StackPanel Margin="15,5,5,5">
+								<Button Content="Club Registration" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="ClubRegistration_Click"/>
+								<Button Content="Athlete Registration" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="AthleteRegistration_Click"/>
+								<Button Content="Relay Teams" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="RelayTeams_Click"/>
+							</StackPanel>
+						</Expander>
+
+						<!-- Competition -->
+						<Expander Header="Competition" Margin="5">
+							<StackPanel Margin="15,5,5,5">
+								<Button Content="Heat Management" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="HeatManagement_Click"/>
+								<Button Content="Results Entry" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="ResultsEntry_Click"/>
+								<Button Content="Live Tracking" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="LiveTracking_Click"/>
+							</StackPanel>
+						</Expander>
+
+						<!-- Records & Reports -->
+						<Expander Header="Records &amp; Reports" Margin="5">
+							<StackPanel Margin="15,5,5,5">
+								<Button Content="Records Library" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="RecordsLibrary_Click"/>
+								<Button Content="Certificates" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="Certificates_Click"/>
+								<Button Content="Team Rankings" Style="{StaticResource ModernButton}"
+                                        Background="Transparent" Foreground="{StaticResource AccentBrush}"
+                                        HorizontalAlignment="Left" Click="TeamRankings_Click"/>
+							</StackPanel>
+						</Expander>
+					</StackPanel>
+				</ScrollViewer>
+			</Border>
+
+			<!-- Main Content Area -->
+			<ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+				<Grid x:Name="MainContentGrid">
+					<!-- Dashboard View (Default) -->
+					<Grid x:Name="DashboardView" Visibility="Visible">
+						<StackPanel>
+							<!-- Statistics Cards -->
+							<Grid Margin="20,20,20,0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+
+								<Border Grid.Column="0" Style="{StaticResource Card}">
+									<StackPanel>
+										<TextBlock Text="🏆" FontSize="32" HorizontalAlignment="Center"/>
+										<TextBlock Text="5" FontSize="36" FontWeight="Bold"
+                                                 HorizontalAlignment="Center" Foreground="{StaticResource AccentBrush}"/>
+										<TextBlock Text="Active Tournaments" FontSize="14"
+                                                 HorizontalAlignment="Center" Foreground="{StaticResource TextBrush}"/>
+									</StackPanel>
+								</Border>
+
+								<Border Grid.Column="1" Style="{StaticResource Card}">
+									<StackPanel>
+										<TextBlock Text="🏊‍♂️" FontSize="32" HorizontalAlignment="Center"/>
+										<TextBlock Text="234" FontSize="36" FontWeight="Bold"
+                                                 HorizontalAlignment="Center" Foreground="{StaticResource AccentBrush}"/>
+										<TextBlock Text="Registered Athletes" FontSize="14"
+                                                 HorizontalAlignment="Center" Foreground="{StaticResource TextBrush}"/>
+									</StackPanel>
+								</Border>
+
+								<Border Grid.Column="2" Style="{StaticResource Card}">
+									<StackPanel>
+										<TextBlock Text="🏛️" FontSize="32" HorizontalAlignment="Center"/>
+										<TextBlock Text="18" FontSize="36" FontWeight="Bold"
+                                                 HorizontalAlignment="Center" Foreground="{StaticResource AccentBrush}"/>
+										<TextBlock Text="Registered Clubs" FontSize="14"
+                                                 HorizontalAlignment="Center" Foreground="{StaticResource TextBrush}"/>
+									</StackPanel>
+								</Border>
+
+								<Border Grid.Column="3" Style="{StaticResource Card}">
+									<StackPanel>
+										<TextBlock Text="📊" FontSize="32" HorizontalAlignment="Center"/>
+										<TextBlock Text="67" FontSize="36" FontWeight="Bold"
+                                                 HorizontalAlignment="Center" Foreground="{StaticResource AccentBrush}"/>
+										<TextBlock Text="Events Scheduled" FontSize="14"
+                                                 HorizontalAlignment="Center" Foreground="{StaticResource TextBrush}"/>
+									</StackPanel>
+								</Border>
+							</Grid>
+
+							<!-- Recent Activities -->
+							<Border Style="{StaticResource Card}" Margin="20,10,20,20">
+								<StackPanel>
+									<TextBlock Text="Recent Activities" Style="{StaticResource SectionHeader}"/>
+									<DataGrid x:Name="RecentActivitiesGrid" Style="{StaticResource ModernDataGrid}"
+                                              Height="250">
+										<DataGrid.Columns>
+											<DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="120"/>
+											<DataGridTextColumn Header="Activity" Binding="{Binding Activity}" Width="*"/>
+											<DataGridTextColumn Header="User" Binding="{Binding User}" Width="150"/>
+											<DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+										</DataGrid.Columns>
+									</DataGrid>
+								</StackPanel>
+							</Border>
+						</StackPanel>
+					</Grid>
+
+					<!-- Tournament Creation View -->
+					<Grid x:Name="TournamentCreationView" Visibility="Collapsed">
+						<Border Style="{StaticResource Card}">
+							<StackPanel>
+								<TextBlock Text="Create New Tournament" Style="{StaticResource HeaderText}"/>
+
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+
+									<StackPanel Grid.Column="0" Margin="0,0,20,0">
+										<Label Content="Tournament Name*" Style="{StaticResource FormLabel}"/>
+										<TextBox x:Name="TournamentNameTextBox" Style="{StaticResource ModernTextBox}"/>
+
+										<Label Content="Venue*" Style="{StaticResource FormLabel}"/>
+										<TextBox x:Name="VenueTextBox" Style="{StaticResource ModernTextBox}"/>
+
+										<Label Content="Start Date*" Style="{StaticResource FormLabel}"/>
+										<DatePicker x:Name="StartDatePicker" Margin="5" FontSize="14"/>
+
+										<Label Content="End Date*" Style="{StaticResource FormLabel}"/>
+										<DatePicker x:Name="EndDatePicker" Margin="5" FontSize="14"/>
+
+										<Label Content="Age Category*" Style="{StaticResource FormLabel}"/>
+										<ComboBox x:Name="AgeCategoryComboBox" Style="{StaticResource ModernComboBox}">
+											<ComboBoxItem Content="Group 1 (U10)"/>
+											<ComboBoxItem Content="Group 2 (U11)"/>
+											<ComboBoxItem Content="Group 3 (U12)"/>
+											<ComboBoxItem Content="Group 4 (U13-U15)"/>
+											<ComboBoxItem Content="Group 5 (U16-U17)"/>
+											<ComboBoxItem Content="Senior (18+)"/>
+											<ComboBoxItem Content="Masters (25+)"/>
+										</ComboBox>
+									</StackPanel>
+
+									<StackPanel Grid.Column="1" Margin="20,0,0,0">
+										<Label Content="Gender Category*" Style="{StaticResource FormLabel}"/>
+										<ComboBox x:Name="GenderCategoryComboBox" Style="{StaticResource ModernComboBox}">
+											<ComboBoxItem Content="Male"/>
+											<ComboBoxItem Content="Female"/>
+											<ComboBoxItem Content="Mixed"/>
+										</ComboBox>
+
+										<Label Content="Competition Type*" Style="{StaticResource FormLabel}"/>
+										<ComboBox x:Name="CompetitionTypeComboBox" Style="{StaticResource ModernComboBox}">
+											<ComboBoxItem Content="Heats &amp; Finals"/>
+											<ComboBoxItem Content="Time Trials"/>
+										</ComboBox>
+
+										<Label Content="Individual Event Type" Style="{StaticResource FormLabel}"/>
+										<ComboBox x:Name="IndividualEventTypeComboBox" Style="{StaticResource ModernComboBox}">
+											<ComboBoxItem Content="Heats"/>
+											<ComboBoxItem Content="Time Trials"/>
+										</ComboBox>
+
+										<Label Content="Relay Event Type" Style="{StaticResource FormLabel}"/>
+										<ComboBox x:Name="RelayEventTypeComboBox" Style="{StaticResource ModernComboBox}">
+											<ComboBoxItem Content="Heats &amp; Finals"/>
+											<ComboBoxItem Content="Time Trials"/>
+										</ComboBox>
+
+										<CheckBox x:Name="SpotEntryCheckBox" Content="Allow Spot Entry"
+                                                Margin="5,20,5,5" FontSize="14"/>
+									</StackPanel>
+								</Grid>
+
+								<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,30,0,0">
+									<Button Content="Cancel" Style="{StaticResource ModernButton}"
+                                            Background="Gray" Click="CancelTournament_Click"/>
+									<Button Content="Create Tournament" Style="{StaticResource ModernButton}"
+                                            Click="CreateTournamentSubmit_Click"/>
+								</StackPanel>
+							</StackPanel>
+						</Border>
+					</Grid>
+
+
+					<!-- Club Registration View -->
+					<Grid x:Name="ClubRegistrationView" Visibility="Collapsed">
+						<Border Style="{StaticResource Card}">
+							<StackPanel>
+								<TextBlock Text="Club Registration" Style="{StaticResource HeaderText}"/>
+
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+
+									<StackPanel Grid.Column="0" Margin="0,0,20,0">
+										<Label Content="Club Name*" Style="{StaticResource FormLabel}"/>
+										<TextBox x:Name="ClubNameTextBox" Style="{StaticResource ModernTextBox}"/>
+
+										<Label Content="Address*" Style="{StaticResource FormLabel}"/>
+										<TextBox x:Name="ClubAddressTextBox" Style="{StaticResource ModernTextBox}"
+                                               Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+										<Label Content="Pin Code*" Style="{StaticResource FormLabel}"/>
+										<TextBox x:Name="PinCodeTextBox" Style="{StaticResource ModernTextBox}"/>
+
+										<Label Content="Email ID*" Style="{StaticResource FormLabel}"/>
+										<TextBox x:Name="ClubEmailTextBox" Style="{StaticResource ModernTextBox}"/>
+									</StackPanel>
+
+									<StackPanel Grid.Column="1" Margin="20,0,0,0">
+										<Label Content="WhatsApp Number*" Style="{StaticResource FormLabel}"/>
+										<TextBox x:Name="ClubWhatsAppTextBox" Style="{StaticResource ModernTextBox}"/>
+
+										<Label Content="Alternate WhatsApp Number" Style="{StaticResource FormLabel}"/>
+										<TextBox x:Name="ClubAltWhatsAppTextBox" Style="{StaticResource ModernTextBox}"/>
+
+										<Label Content="Coach Name*" Style="{StaticResource FormLabel}"/>
+										<TextBox x:Name="CoachNameTextBox" Style="{StaticResource ModernTextBox}"/>
+
+										<CheckBox x:Name="ResultsSharingCheckBox"
+                                                Content="Enable day-wise results sharing"
+                                                Margin="5,20,5,5" FontSize="14"/>
+									</StackPanel>
+								</Grid>
+
+								<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,30,0,0">
+									<Button Content="Clear Form" Style="{StaticResource ModernButton}"
+                                            Background="Gray" Click="ClearClubForm_Click"/>
+									<Button Content="Register Club" Style="{StaticResource ModernButton}"
+                                            Click="RegisterClub_Click"/>
+								</StackPanel>
+							</StackPanel>
+						</Border>
+					</Grid>
+				</Grid>
+			</ScrollViewer>
+		</Grid>
+	</Grid>
+</Window>

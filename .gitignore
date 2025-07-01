@@ -1,0 +1,30 @@
+# Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Ignore build outputs
+bin/
+obj/
+*.dll
+*.exe
+
+# Ignore user-specific files
+*.log
+*.sln.docstates
+
+# Ignore Rider and JetBrains files
+.idea/
+
+# Ignore temp folders
+*.tmp
+*.cache
+
+# Ignore user config files
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Ignore test output and backups
+TestResults/
+*.bak
