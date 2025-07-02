@@ -9,7 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="event_management.xml">
+    <Page Remove="event_management.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="event_management.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
